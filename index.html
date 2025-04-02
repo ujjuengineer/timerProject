@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>counter</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div>
@@ -23,7 +25,7 @@
         function startCounter() {
             if (btn.classList.contains("startButton")) {
                 btn.classList.replace("startButton", "stopButton");
-                btn.innerHTML = "stop timer";
+                btn.innerHTML = "Stop Timer";
 
                 let id = setInterval(()=>{
                     count+=1;
@@ -45,7 +47,7 @@
 
             else {
                 btn.classList.replace("stopButton", "startButton");
-                btn.innerHTML = "start timer";
+                btn.innerHTML = "Start Timer";
                 clearInterval(counterId);
                 ele.innerHTML = "00 : 00 : 00";
                 counterId = null;
