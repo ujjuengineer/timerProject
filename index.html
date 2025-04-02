@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>counter</title>
+</head>
+<body>
+    <div>
+        <p class="counterDisplay">00 : 00 : 00</p>
+        <button id="powerButton" class="startButton" onclick="startCounter()">Start Timer</button>
+        <button onclick="pauseCounter()">Pause Timer</button>
+    </div>
+
+    <script>
+
+        let ele = document.querySelector(".counterDisplay");
+        let btn = document.querySelector("#powerButton");  
+
+        let count = 0;
+        let counterId = null;
+
+        function startCounter() {
+            if (btn.classList.contains("startButton")) {
+                btn.classList.replace("startButton", "stopButton");
+                btn.innerHTML = "stop timer";
+
+                let id = setInterval(()=>{
+                    count+=1;
+                    let hrs = Math.floor(count/3600);
+                    let min = Math.floor((count % 3600)/60);
+                    let remainingSec = Math.floor((count%3600)%60);
+                    console.log(remainingSec);
+
+                    // if min hrs and sec are of single digit then add extra 0 before it 
+                    if(parseInt(remainingSec/10) == 0) remainingSec = '0' + remainingSec;
+                    if(parseInt(hrs/10) == 0) min = '0' + min;
+                    if(parseInt(min/10) == 0) hrs = '0' + hrs;
+                    console.log(remainingSec);
+
+                    ele.innerHTML = `${hrs} : ${min} : ${remainingSec}`;
+                },1000)
+                counterId = id;
+            }
+
+            else {
+                btn.classList.replace("stopButton", "startButton");
+                btn.innerHTML = "start timer";
+                clearInterval(counterId);
+                ele.innerHTML = "00 : 00 : 00";
+                counterId = null;
+                count = 0;
+            }
+        }
+
+        // function startCounter() {
+        //     console.log("hello");
+        //     if(counterId) return; // prevent multiple cllick 
+
+        //     
+
+        //     
+        //     pauseActive = null;
+        // }
+
+
+        let pauseActive = false;
+        function pauseCounter () {
+            if (btn.classList.contains("startButton")){
+                return;
+            }
+            else {
+                if(pauseActive) {
+                    // you have to continue the timer
+                    btn.classList.add("startButton");
+                    btn.classList.remove("stopButton");
+                    pauseActive = false;
+                    startCounter();
+                }else {
+                    // you have to stop the timer
+                    clearInterval(counterId);
+                    pauseActive = true;
+                }
+            }
+        }
+        
+        
+    </script>
+</body>
+</html>
